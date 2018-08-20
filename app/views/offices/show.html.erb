@@ -1,0 +1,5 @@
+<h1><%= @office.description %></h1>
+<h2>Chez <%= @office.user.email %></h2>
+<p> Number of desks: <%= @office.capacity_max %></p>
+
+<%= link_to "Back to list", offices_path %>

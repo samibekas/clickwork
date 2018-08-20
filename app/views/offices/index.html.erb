@@ -1,0 +1,8 @@
+<h1>All offices</h1>
+<ul>
+  <% @offices.each do |office| %>
+    <li>
+      <%= link_to office.description, office_path(office) %>
+    </li>
+  <% end %>
+</ul>
