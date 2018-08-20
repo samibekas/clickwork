@@ -42,7 +42,11 @@ class OfficesController < ApplicationController
     @offices = Office.where(user_id: current_user.id)
     @office = @offices.find(params[:id])
     @office.delete
-    redirect_to myoffices_path
+    if @offices.empty?
+      redirect_to offices_path
+    else 
+      redirect_to myoffices_path
+    end
   end
 
   private
