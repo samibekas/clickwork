@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2018_08_20_155359) do
     t.integer "capacity_max"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
     t.string "photo"
     t.index ["user_id"], name: "index_offices_on_user_id"
   end

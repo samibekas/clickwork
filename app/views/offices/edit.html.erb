@@ -1,0 +1,8 @@
+<%= simple_form_for @office do |f| %>
+  <%= f.input :name %>
+  <%= f.input :description %>
+  <%= f.input :address %>
+  <%= f.input :capacity_max %>
+  <%= f.submit "Edit office", class: "btn btn-primary" %>
+<% end %>
+
