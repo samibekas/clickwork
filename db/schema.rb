@@ -10,10 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_20_134605) do
+ActiveRecord::Schema.define(version: 2018_08_20_135534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookings", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "desk_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["desk_id"], name: "index_bookings_on_desk_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
+
+  create_table "desks", force: :cascade do |t|
+    t.bigint "office_id"
+    t.integer "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["office_id"], name: "index_desks_on_office_id"
+  end
 
   create_table "offices", force: :cascade do |t|
     t.bigint "user_id"
@@ -26,6 +43,17 @@ ActiveRecord::Schema.define(version: 2018_08_20_134605) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_offices_on_user_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "office_id"
+    t.text "comment"
+    t.integer "rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["office_id"], name: "index_reviews_on_office_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -45,5 +73,10 @@ ActiveRecord::Schema.define(version: 2018_08_20_134605) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "bookings", "desks"
+  add_foreign_key "bookings", "users"
+  add_foreign_key "desks", "offices"
   add_foreign_key "offices", "users"
+  add_foreign_key "reviews", "offices"
+  add_foreign_key "reviews", "users"
 end
