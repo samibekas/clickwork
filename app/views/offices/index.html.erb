@@ -2,7 +2,7 @@
 <ul>
   <% @offices.each do |office| %>
     <li>
-      <%= link_to office.description, office_path(office) %>
+      <%= link_to office.name, office_path(office) %>
     </li>
   <% end %>
 </ul>
