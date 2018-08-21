@@ -19,8 +19,6 @@ class ApplicationController < ActionController::Base
 
   def skip_pundit?
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
-
-    before_action :configure_permitted_parameters, if: :devise_controller?
   end
 
   def configure_permitted_parameters
