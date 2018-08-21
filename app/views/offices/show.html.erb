@@ -16,3 +16,25 @@
 <p><%= @office.desks.first.price %> €</p>
 
 <%= link_to "Back to list", offices_path %>
+
+<%= simple_form_for [@office, @review] do |f| %>
+  <%= f.input :comment %>
+  <%= f.input :rating %>
+  <%= f.submit "Add a review", class: "btn btn-primary" %>
+<% end %>
+
+
+<% if @reviews.nil? %>
+  <p>No reviews Yet</p>
+<% else %>
+  <ul>
+    <% @reviews.each do |review| %>
+      <li>
+        <%= review.created_at %>
+        <%= review.comment %>
+        <%= review.rating %>
+        <%= review.user.first_name %> <%= review.user.last_name %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

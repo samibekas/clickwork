@@ -6,17 +6,20 @@ class OfficesController < ApplicationController
     @offices = policy_scope(Office).order(created_at: :desc)
   end
 
-  def index_current_user
+  def myoffices
     @offices = policy_scope(Office.where(user_id: current_user.id)).order(created_at: :desc)
     authorize @offices
   end
 
   def show
     authorize @office
+    @review = Review.new
+    @reviews = Review.where(office_id: @office.id)
   end
 
   def new
     @office = Office.new
+    @review = Review.new
     @desk = Desk.new
     @desk.office = @office
     authorize @office
@@ -48,11 +51,12 @@ class OfficesController < ApplicationController
 
   def update
     authorize @office
+
     if @office.update(office_params)
       @office.desks.each do |desk|
         desk.update(price: params[:price_per_desk])
       end
-      redirect_to myoffices_path
+      redirect_to myoffices_offices_path
     end
   end
 
@@ -62,7 +66,7 @@ class OfficesController < ApplicationController
     if current_user.offices.empty?
       redirect_to offices_path
     else
-      redirect_to myoffices_path
+      redirect_to myoffices_offices_path
     end
   end
 
