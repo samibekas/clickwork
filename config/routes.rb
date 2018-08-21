@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: 'offices#index'
-  get '/myoffices', to: 'offices#index_current_user', as: 'myoffices'
-  resources :offices, only: [:index, :show, :create, :new, :edit, :update, :destroy]
+  resources :offices, only: [:index, :show, :create, :new, :edit, :update, :destroy] do
+    collection do
+      get 'myoffices'
+    end
+    resources :reviews, only: [:create]
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
