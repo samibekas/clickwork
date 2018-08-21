@@ -17,7 +17,7 @@ class OfficePolicy < ApplicationPolicy
   end
 
   def edit?
-    true
+    record.user == user
   end
 
   def update?

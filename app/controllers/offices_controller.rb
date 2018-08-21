@@ -60,7 +60,7 @@ class OfficesController < ApplicationController
   end
 
   def office_params
-    params.require(:office).permit(:descritpion, :capacity_max, :user_id, :address, :name)
+    params.require(:office).permit(:description, :capacity_max, :user_id, :address, :name)
   end
 end
 

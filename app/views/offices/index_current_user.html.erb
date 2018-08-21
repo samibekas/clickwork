@@ -3,8 +3,10 @@
   <% @offices.each do |office| %>
     <li>
       <%= office.name %>
-      <%= link_to "Edit", edit_office_path(office) %>
-      <%= link_to "Delete", office_path(office), method: :delete, data: { confirm: "Are you sure?" } %>
+      <% if policy(office).edit? %>
+        <%= link_to "Edit", edit_office_path(office) %>
+        <%= link_to "Delete", office_path(office), method: :delete, data: { confirm: "Are you sure?" } %>
+      <% end %>
     </li>
   <% end %>
 </ul>
