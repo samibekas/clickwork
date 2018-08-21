@@ -17,6 +17,8 @@ class OfficesController < ApplicationController
 
   def new
     @office = Office.new
+    @desk = Desk.new
+    @desk.office = @office
     authorize @office
   end
 
@@ -25,6 +27,13 @@ class OfficesController < ApplicationController
     @office.user = current_user
     authorize @office
     if @office.save
+      @office.capacity_max.times do
+        desk = Desk.new(
+          office_id: @office.id,
+          price: params[:price_per_desk]
+        )
+        desk.save!
+      end
       redirect_to office_path(@office)
     else
       render :new
@@ -32,15 +41,19 @@ class OfficesController < ApplicationController
   end
 
   def edit
-    # @offices = Office.where(user_id: current_user.id)
-    # @office = @offices.find(params[:id])
     authorize @office
+    @desk = Desk.new
+    @desk.office = @office
   end
 
   def update
     authorize @office
-    @office.update(office_params)
-    redirect_to myoffices_path
+    if @office.update(office_params)
+      @office.desks.each do |desk|
+        desk.update(price: params[:price_per_desk])
+      end
+      redirect_to myoffices_path
+    end
   end
 
   def destroy
