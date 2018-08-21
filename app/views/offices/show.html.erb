@@ -2,10 +2,17 @@
 
 <%= cl_image_tag @office.photo, width: 400, height: 300, crop: :fill %>
 
-<h2>Chez <%= @office.user.email %></h2>
-<h3> Description: <%= @office.description %></h3>
+<h2>Chez <%= @office.user.first_name %></h2>
+<h4> Description: </h4>
+<p><%= @office.description %></p>
+
+<h4> Address: </h4>
 <p><%= @office.address %></p>
 
-<p> Number of desks: <%= @office.capacity_max %></p>
+<h4> Number of desks: </h4>
+<p><%= @office.capacity_max %></p>
+
+<h4> Daily price per desk: </h4>
+<p><%= @office.desks.first.price %> €</p>
 
 <%= link_to "Back to list", offices_path %>
