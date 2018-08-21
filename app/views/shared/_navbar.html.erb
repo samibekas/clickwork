@@ -11,7 +11,7 @@
     <% if user_signed_in? %>
 
       <% unless current_user.offices.empty? %>
-        <%= link_to "My offices", myoffices_path, class: "navbar-wagon-item navbar-wagon-link" %>
+        <%= link_to "My offices", myoffices_offices_path, class: "navbar-wagon-item navbar-wagon-link" %>
       <% end %>
       <!-- Links when logged in -->
       <%= link_to "Host", "#", class: "navbar-wagon-item navbar-wagon-link" %>

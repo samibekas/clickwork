@@ -1,6 +1,6 @@
 class OfficePolicy < ApplicationPolicy
 
-  def index_current_user?
+  def myoffices?
     true
   end
 
