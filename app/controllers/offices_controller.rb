@@ -4,6 +4,15 @@ class OfficesController < ApplicationController
 
   def index
     @offices = policy_scope(Office).order(created_at: :desc)
+    @offices_address = Office.where.not(latitude: nil, longitude: nil)
+
+    @markers = @offices_address.map do |office|
+      {
+        lat: office.latitude,
+        lng: office.longitude#,
+        # infoWindow: { content: render_to_string(partial: "/flats/map_box", locals: { flat: flat }) }
+      }
+    end
   end
 
   def myoffices
@@ -16,6 +25,13 @@ class OfficesController < ApplicationController
     authorize @office
     @review = Review.new
     @reviews = Review.where(office_id: @office.id)
+
+    @markers =
+      [{
+        lat: @office.latitude,
+        lng: @office.longitude#,
+        # infoWindow: { content: render_to_string(partial: "/flats/map_box", locals: { flat: flat }) }
+      }]
   end
 
   def new
