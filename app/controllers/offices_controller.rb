@@ -52,7 +52,6 @@ class OfficesController < ApplicationController
 
   def update
     authorize @office
-
     if @office.update(office_params)
       @office.desks.each do |desk|
         desk.update(price: params[:price_per_desk])
