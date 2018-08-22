@@ -52,7 +52,23 @@ class OfficesController < ApplicationController
 
   def update
     authorize @office
+
+    @old_office = @office.capacity_max
+
     if @office.update(office_params)
+      if @old_office > @office.capacity_max
+        number_of_desks = @old_office - @office.capacity_max
+        @office.desks.where(available: true).take(number_of_desks).each(&:destroy)
+      else
+        number_of_desks = @office.capacity_max - @old_office
+        number_of_desks.times do
+          desk = Desk.new(
+            office_id: @office.id,
+            price: params[:price_per_desk]
+          )
+          desk.save!
+        end
+      end
       @office.desks.each do |desk|
         desk.update(price: params[:price_per_desk])
       end
