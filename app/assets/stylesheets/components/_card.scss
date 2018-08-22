@@ -4,8 +4,7 @@
   background-size: cover !important;
   background-position: center;
   color: white;
-  position: relative;
-  margin: 10px;
+  position: relative;;
 }
 .card-user {
   position: absolute;
@@ -22,6 +21,7 @@
   text-transform: uppercase;
   text-decoration: none;
   color: white;
+  border: light
 }
 .card-description {
   position: absolute;
@@ -51,6 +51,7 @@
   opacity: 0.1;
 }
 
+
 h3 {
   color: #19535F;
   text-align: center;
@@ -61,4 +62,10 @@ h3 {
 
 a {
   color: white;
+}
+
+h4 {
+  font-size: 14px;
+  line-height: 18px;
+  color: #484848;
 }
