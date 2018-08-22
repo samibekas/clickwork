@@ -28,8 +28,11 @@
           <li><p><span><strong><%= @office.desks.first.price %>€</span></strong> per desk</p></li>
         </ul>
         <hr>
+
         <div class="book-form">
           <%= simple_form_for [@office, @booking] do |f| %>
+            <%= f.input :start_at, as: :string, required: false, input_html: {class: "datepicker"} %>
+          <%= f.input :end_at, as: :string, required: false, input_html: {class: "datepicker"} %>
             <%= f.input :number_of_desks, as: :fake, class: "input" %>
             <%= f.submit "Book a desk", class: "btn" %>
           <% end %>
@@ -37,6 +40,8 @@
       </div>
     </div>
   </div>
+
+ <%#= render 'shared/flatpickr' %>
 
   <div class="reviews">
     <hr>
@@ -86,31 +91,4 @@
       </div>
     </div>
   </div>
-
-
-
-  <%= simple_form_for [@office, @review] do |f| %>
-    <%= f.input :comment %>
-    <%= f.input :rating %>
-    <%= f.submit "Add a review", class: "btn btn-primary" %>
-  <% end %>
-
-
-  <% if @reviews.nil? %>
-    <p>No reviews Yet</p>
-  <% else %>
-    <ul>
-      <% @reviews.each do |review| %>
-        <li>
-          <%= review.created_at %>
-          <%= review.comment %>
-          <%= review.rating %>
-          <%= review.user.first_name %> <%= review.user.last_name %>
-        </li>
-      <% end %>
-    </ul>
-  <% end %>
-
-  <%= render 'shared/flatpickr' %>
 </div>
-
