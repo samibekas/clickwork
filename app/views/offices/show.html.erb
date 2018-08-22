@@ -1,21 +1,91 @@
+<div style="background-image:url(<%= @office.photo.url %>); height: 50vh; width: 100%; background-size: cover;">
+</div>
+
+
 <div class="container">
-  <%= cl_image_tag @office.photo, width: 400, height: 300, crop: :fill %>
 
-  <h1><%= @office.name %></h1>
-  <h2>Chez <%= @office.user.first_name %></h2>
-  <h4> Description: </h4>
-  <p><%= @office.description %></p>
+  <div class="important-info">
+    <div class="primiry-info">
+      <div class="title">
+        <h1><%= @office.name %></h1>
+        <p><%= @office.address %></p>
+      </div>
+      <div class="host-info text-center">
+        <%= cl_image_tag @office.user.photo, class: "img-circle", :width => 60, :height => 60 %>
+        <p><%= @office.user.first_name %></p>
+      </div>
+    </div>
 
-  <h4> Address: </h4>
-  <p><%= @office.address %></p>
+    <div class="secondary-info">
+      <h4>DESCRIPTION:</h4>
+      <p><%= @office.description %></p>
+    </div>
 
-  <h4> Number of desks: </h4>
-  <p><%= @office.capacity_max %></p>
+    <div class="fixed">
+      <div class="book">
+        <ul class="list-inline">
+          <li><p><span><strong><%= @office.capacity_max%></span></strong> seats available</p></li>
+          <li><p><span><strong><%= @office.desks.first.price %>€</span></strong> per desk</p></li>
+        </ul>
+        <hr>
+        <div class="book-form">
+          <%= simple_form_for [@office, @booking] do |f| %>
+            <%= f.input :number_of_desks, as: :fake, class: "input" %>
+            <%= f.submit "Book a desk", class: "btn" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <h4> Daily price per desk: </h4>
-  <p><%= @office.desks.first.price %> €</p>
-
-  <%= link_to "Back to list", offices_path %>
+  <div class="reviews">
+    <hr>
+    <p><strong>89 commentaires</strong>
+      <% 5.times do %>
+        <i class="fas fa-star"></i>
+      <% end %>
+    </p>
+    <hr>
+    <div class="comments">
+      <% if @reviews.nil? %>
+        <p>No reviews Yet</p>
+      <% else %>
+          <ul class="list-inline">
+            <% @reviews.each do |review| %>
+            <div class="comment">
+                <li>
+                  <div class="commenter-info">
+                    <div class="commenter-avatar">
+                      <%= cl_image_tag review.user.photo, class: "img-circle", :width => 60, :height => 60 %>
+                    </div>
+                    <div class="commenter-name">
+                      <p><%= review.user.first_name %></p>
+                      <div class="comment-date">
+                        <p><%= review.created_at.strftime("%B") %> <%= review.created_at.year %></p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="comment-content">
+                    <p><%= review.comment %></p>
+                    <% review.rating.times do %>
+                      <i class="fas fa-star"></i>
+                    <% end %>
+                  </div>
+                </li>
+                <hr>
+              <% end %>
+            </div>
+          </ul>
+      <% end %>
+      <div class="form-comment">
+        <%= simple_form_for [@office, @review] do |f| %>
+          <%= f.input :comment %>
+          <%= f.input :rating %>
+          <%= f.submit "Add a review", class: "btn" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 
 
 
@@ -43,3 +113,4 @@
 
   <%= render 'shared/flatpickr' %>
 </div>
+

@@ -52,7 +52,9 @@ class OfficesController < ApplicationController
 
   def update
     authorize @office
+
     @old_office = @office.capacity_max
+
     if @office.update(office_params)
       if @old_office > @office.capacity_max
         number_of_desks = @old_office - @office.capacity_max
