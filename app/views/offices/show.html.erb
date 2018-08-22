@@ -1,4 +1,6 @@
-<div style="background-image:url(<%= @office.photo.url %>); height: 50vh; width: 100%; background-size: cover;">
+<div style="background-image:url(<%= @office.photo.url %>); height: 50vh; width: 100%; background-size: cover;  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;">
 </div>
 
 
@@ -45,11 +47,16 @@
 
   <div class="reviews">
     <hr>
-    <p><strong>89 commentaires</strong>
+    <% if @reviews.nil? %>
+        <p>No reviews Yet</p>
+      <% else %>
+      <p><strong><%= @reviews.count %> commentaires</strong></p>
       <% 5.times do %>
         <i class="fas fa-star"></i>
       <% end %>
-    </p>
+    <% end %>
+
+
     <hr>
     <div class="comments">
       <% if @reviews.nil? %>
