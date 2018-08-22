@@ -9,7 +9,7 @@ class BookingsController < ApplicationController
 
   def create
     @office = Office.find(params[:office_id])
-    @booking = Booking.new
+    @booking = Booking.new(booking_params)
     @booking.user = current_user
     @booking.desk =  @office.desks.first
     authorize @booking
@@ -35,6 +35,6 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:user_id, :desk_id)
+    params.require(:booking).permit(:user_id, :desk_id, :start_at, :end_at)
   end
 end
