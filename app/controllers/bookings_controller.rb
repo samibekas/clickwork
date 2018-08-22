@@ -4,28 +4,35 @@ class BookingsController < ApplicationController
 
   def new
     @booking = Booking.new
+    @books = []
     authorize @booking
+    # availability = 1
+    # number_of_other_bookings_same_date = Booking.where(start_at: date).count
+    # availability *= 0 unless number_of_other_bookings_same_date < @office.capacity_max
+    # if availability == 1
   end
 
   def create
-    @office = Office.find(params[:office_id])
-    @booking = Booking.new(booking_params)
-    @booking.user = current_user
-    @booking.desk =  @office.desks.first
-    authorize @booking
-    if params[:number_of_desks].to_i <= @office.capacity_max
-      @booking.save!
-      @office.update(capacity_max: @office.capacity_max - params[:number_of_desks].to_i)
-      @desks = @office.desks.where(available: true).take(params[:number_of_desks].to_i)
-      @desks.each do |desk|
-        desk.update(available: false)
-      end
+    if params[:booking][:dates].nil?
       redirect_to office_path(@office)
-    else
-      flash[:alert] = "Frero, y a pas autant de place..."
-      redirect_to office_path(@office)
+      flash[:alert] = "Please specify a date"
     end
+    dates_string = params[:booking][:dates]
+    dates = dates_string.split(', ')
 
+    @office = Office.find(params[:office_id])
+
+    dates.each do |date|
+      @booking = Booking.new()
+      @booking.user = current_user
+      @booking.dates = date
+      authorize @booking
+      @booking.save
+      flash[:notice] = "Booking confirmed!"
+        # redirect_to office_path(@office)
+        # flash[:alert] = "Not enough desks availables"
+    end
+    redirect_to office_path(@office)
   end
 
   private
@@ -35,6 +42,6 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:user_id, :desk_id, :start_at, :end_at)
+    params.require(:booking).permit(:user_id, :desk_id)
   end
 end
