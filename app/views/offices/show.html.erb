@@ -32,7 +32,7 @@
         <div class="book-form" data-dates=<%= @books %>>
           <%= simple_form_for [@office, @booking] do |f| %>
             <%= f.input :dates, as: :string, required: true, input_html: {class: "datepicker"} %>
-            <%= f.submit "Book a desk", class: "btn" %>
+            <%= f.submit "Book a desk", class: "btn", id: "btn-submit-date" %>
           <% end %>
         </div>
       </div>
