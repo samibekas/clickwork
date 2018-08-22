@@ -1,10 +1,46 @@
-<%= simple_form_for @office do |f| %>
-  <%= f.input :name %>
-  <%= f.input :description %>
-  <%= f.input :address %>
-  <%= f.input :capacity_max %>
-  <%= f.input :photo %>
-  <%= f.input :price_per_desk, as: :fake %>
-  <%= f.input :photo_cache, as: :hidden %>
-  <%= f.submit "add an office", class: "btn btn-primary" %>
-<% end %>
+<style>
+.container {
+  width: 400px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.btn {
+  background-color: white;
+  border: 1px solid #747474;
+  color: #747474;
+  font-size: 14px;
+  font-weight: 800;
+  width: 100%;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  transition: all 0.3s ease-out;
+}
+.btn:hover {
+  background-color: #747474;
+  color: white;
+}
+
+label {
+  font-size: 16px;
+  color: #747474;
+}
+
+#office_name {
+  border-radius: 4px;
+}
+</style>
+
+<h1 class="text-center">Add a coworking space</h1>
+<div class="container">
+  <%= simple_form_for @office do |f| %>
+    <%= f.input :name %>
+    <%= f.input :description %>
+    <%= f.input :address %>
+    <%= f.input :capacity_max %>
+    <%= f.input :photo %>
+    <%= f.input :price_per_desk, as: :fake %>
+    <%= f.input :photo_cache, as: :hidden %>
+    <%= f.submit "Add an office", class: "btn" %>
+  <% end %>
+</div>
