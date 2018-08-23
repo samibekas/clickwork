@@ -13,26 +13,33 @@ class BookingsController < ApplicationController
   end
 
   def create
-    if params[:booking][:dates].nil?
-      redirect_to office_path(@office)
-      flash[:alert] = "Please specify a date"
-    end
-    dates_string = params[:booking][:dates]
-    dates = dates_string.split(', ')
+    # if params[:booking][:dates].nil?
+    #   redirect_to office_path(@office)
+    #   flash[:alert] = "Please specify a date"
+    # end
 
     @office = Office.find(params[:office_id])
+    authorize @office
+    if current_user == @office.user
+      redirect_to office_path(@office)
+      flash[:alert] = "You can't book your own place"
+    else
+      dates_string = params[:booking][:dates]
+      dates = dates_string.split(', ')
 
-    dates.each do |date|
-      @booking = Booking.new()
-      @booking.user = current_user
-      @booking.dates = date
-      authorize @booking
-      @booking.save
-      flash[:notice] = "Booking confirmed!"
-        # redirect_to office_path(@office)
-        # flash[:alert] = "Not enough desks availables"
+
+      dates.each do |date|
+        @booking = Booking.new()
+        @booking.user = current_user
+        @booking.dates = date
+        authorize @booking
+        @booking.save
+        flash[:notice] = "Booking confirmed!"
+          # redirect_to office_path(@office)
+          # flash[:alert] = "Not enough desks availables"
+      end
+      redirect_to office_path(@office)
     end
-    redirect_to office_path(@office)
   end
 
   private
