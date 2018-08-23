@@ -31,6 +31,7 @@ class OfficesController < ApplicationController
     @office.user = current_user
     authorize @office
     if @office.save
+      @office.facilities << Facility.find(params["office"]["facility_ids"])
       @office.capacity_max.times do
         desk = Desk.new(
           office_id: @office.id,
@@ -93,7 +94,7 @@ class OfficesController < ApplicationController
   end
 
   def office_params
-    params.require(:office).permit(:description, :capacity_max, :user_id, :address, :name, :photo)
+    params.require(:office).permit(:description, :capacity_max, :user_id, :address, :name, :photo, :facilities)
   end
 end
 

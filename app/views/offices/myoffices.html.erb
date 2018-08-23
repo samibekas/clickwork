@@ -1,13 +1,19 @@
-<h1>Your offices</h1>
-<ul>
-  <% @offices.each do |office| %>
-    <li>
-      <%= link_to office.name, office_path(office) %>
-      <% if policy(office).edit? %>
-        <%= link_to "Edit", edit_office_path(office) %>
-        <%= link_to "Delete", office_path(office), method: :delete, data: { confirm: "Are you sure?" } %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
+<div class="container">
+  <h1>Your offices</h1>
+    <div class="row">
+      <ul>
+        <% @offices.each do |office| %>
+          <li>
+            <%= link_to office.name, office_path(office) %>
+            <% if policy(office).edit? %>
+              <%= link_to "Edit", edit_office_path(office) %>
+              <%= link_to "Delete", office_path(office), method: :delete, data: { confirm: "Are you sure?" } %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+</div>
+
+
 
