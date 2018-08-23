@@ -44,17 +44,18 @@
   <div class="reviews">
     <hr>
     <% if @reviews.nil? %>
-        <p>No reviews Yet</p>
+      <p><strong>Be the first one to give a comment </strong></p>
       <% else %>
-      <p><strong><%= @reviews.count %> commentaires</strong></p>
-      <% if @average == 0 %>
-        <p> No stars </p>
-      <% else %>
-        <%= @average.times do %>
-          <i class="fas fa-star"></i>
-        <% end %>
-      <% end %>
-    <% end %>
+
+      <p><strong><%= @reviews.count %> comments </strong></p>
+        <% @office.reviews.average(:rating).to_i.times do %>
+              <i class="fas fa-star"></i>
+                <% end %>
+            <% (5 - @office.reviews.average(:rating).to_i).times do %>
+              <i class="far fa-star"></i>
+            <% end %>
+          </p>
+   <% end %>
 
 
     <hr>
@@ -80,7 +81,7 @@
                   <div class="comment-content">
                     <p><%= review.comment %></p>
                     <% review.rating.times do %>
-                      <i class="fas fa-star"></i>
+                       <i class="fas fa-star"></i>
                     <% end %>
                   </div>
                 </li>

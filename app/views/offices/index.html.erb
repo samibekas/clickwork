@@ -37,8 +37,11 @@
               <li><p class="card-description"><strong><%= office.desks.first.price %>€</strong> per desk</p></li>
               <li>
                 <p>
-                  <%= office.reviews.average(:rating).to_i.times do %>
+                  <% office.reviews.average(:rating).to_i.times do %>
                     <i class="fas fa-star"></i>
+                  <% end %>
+                  <% (5 - office.reviews.average(:rating).to_i).times do %>
+                    <i class="far fa-star"></i>
                   <% end %>
                 </p>
               </li>
@@ -47,10 +50,10 @@
             <p class="address"><%= office.zipcode %> <%= office.city %></p>
           </div>
         </div>
-        </div>
+      </div>
     <% end %>
     </div>
-    </div>
+  </div>
 
     <div
     id="map"
