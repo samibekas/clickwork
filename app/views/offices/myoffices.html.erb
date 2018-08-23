@@ -1,5 +1,6 @@
 <div class="container">
   <h1>Your offices</h1>
+
     <% @offices.each do |office| %>
         <div class="big-card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= office.photo %>);">
           <div class="office-name">

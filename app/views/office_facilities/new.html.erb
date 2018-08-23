@@ -1,0 +1,8 @@
+<div class="container">
+  <%= simple_form_for [@office, @office_facility] do |f| %>
+    <%= f.association :facility %>
+    <%= f.submit "Add facility", class: "btn btn-primary"%>
+  <% end %>
+
+  <%= link_to "Back to office", office_path(@office)  %>
+</div>
