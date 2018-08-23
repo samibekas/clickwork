@@ -6,19 +6,17 @@ class OfficesController < ApplicationController
     @offices = policy_scope(Office).order(created_at: :desc)
     @offices_address = Office.where.not(latitude: nil, longitude: nil)
 
+    if params[:office].present?
+      sql_query = "city ILIKE ? AND category ILIKE ?"
+      @offices_address = Office.where(sql_query, "%#{params[:office]["where"]}%", "%#{params[:office]["category"]}%" )
+    end
+
     @markers = @offices_address.map do |office|
       {
         lat: office.latitude,
         lng: office.longitude,
         infoWindow: { content: render_to_string(partial: "/offices/infowindow", locals: { office: office }) }
       }
-    end
-
-    if params[:office].present?
-      sql_query = "city ILIKE ? AND category ILIKE ?"
-      @offices = Office.where(sql_query, "%#{params[:office]["where"]}%", "%#{params[:office]["category"]}%" )
-    else
-      @offices = Office.all
     end
 
   end
