@@ -1,1 +1,24 @@
 // Specific CSS for your home-page
+
+.offices-and-map {
+  display: flex;
+  margin-bottom: 45px;
+}
+
+.offices {
+  margin-top: 50px;
+  min-width: 810px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.map {
+  flex: 0 0 600px;
+  position: sticky !important;
+  height: 90vh !important;
+  padding-bottom: 24px !important;
+  padding-top: 24px !important;
+  top: 0px !important;
+  margin: 26px
+}
+
