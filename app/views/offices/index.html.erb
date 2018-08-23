@@ -1,78 +1,75 @@
 
 <div class="home-banner" style="background-image: linear-gradient(-225deg, rgba(0,0,0,0.4) 0%, rgba(5,5,5,0.4) 50%), url('https://images.unsplash.com/photo-1523908511403-7fc7b25592f4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=1fe18e6fdfabd9a43474c9ad3d2255b4&auto=format&fit=crop&w=1050&q=80);">
   <div class="container" style="width: 800px;">
-    <h1>Click and Work</h1>
-    <p>
-      <span id="banner-typed-text"></span>
-    </p>
-    <span>
-      <%= form_tag @offices_path, method: :get, class:"form-inline" do %>
-      <div class="form-group">
-        <%= select("office", "where", Office::CITIES, {include_blank: true}) %>
-        <%= select("office", "category", Office::CATEGORIES, {include_blank: true}) %>
-        <%= submit_tag "Check space", class: "btn btn-default" %>
-      </div>
-      <% end %>
-    </span>
+    <div class="pv">
+      <h1>Click and Work</h1>
+      <p>
+        <span id="banner-typed-text"></span>
+      </p>
+    </div>
   </div>
 </div>
 
-<h3> Let's find all the best places</h3>
+<div class="container" style="width: 800px;">
+  <span>
+    <%= form_tag @offices_path, method: :get, class:"form-inline" do %>
+    <div class="form-group search">
+      <ul class="list-inline ul-search">
+        <li class="li-search">
+          <p class="p-title">- Where?</p>
+          <%= select("office", "where", Office::CITIES, {include_blank: "Destination, City, Country"}, {:class => "form-control select"}) %>
+        </li>
+        <li class="li-search">
+          <p class="p-title">- What?</p>
+          <%= select("office", "category", Office::CATEGORIES, {include_blank: "Event, Meeting, Coworking"}, {:class => "form-control select"}) %>
+        </li>
+        <li class="li-search">
+          <%= submit_tag "Check space", class: "btn-search" %>
+        </li>
+      </ul>
+    </div>
+    <% end %>
+  </span>
+</div>
 
-<div class="container">
-  <div class="row">
-  <div class="offices-and-map">
-    <div class="offices">
-    <% @offices.each do |office| %>
-       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="card">
-          <div class="card-img" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path office.photo %>')">
-            <div class="card-category"><%= link_to "", office_path(office.id)%>
-            </div>
-            <a class="card-link" href="/offices/<%=office.id%>" ></a>
+<div class="offices-and-map">
+  <div class="offices">
+  <% @offices.each do |office| %>
+      <div class="card">
+        <div class="card-img" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path office.photo %>')">
+          <div class="card-category"><%= link_to "", office_path(office.id)%>
           </div>
-          <div class="card-body">
-            <h4><%= link_to office.name, office_path(office.id) %></h4>
-            <ul class="list-inline">
-              <li><p class="card-description"><strong><%= office.price %>€</strong> per desk</p></li>
-              <li>
-                <p>
-                  <% office.reviews.average(:rating).to_i.times do %>
-                    <i class="fas fa-star"></i>
-                  <% end %>
-                  <% (5 - office.reviews.average(:rating).to_i).times do %>
-                    <i class="far fa-star"></i>
-                  <% end %>
-                </p>
-              </li>
-            </ul>
-
-            <p class="address"><%= office.zipcode %> <%= office.city %></p>
-          </div>
+          <a class="card-link" href="/offices/<%=office.id%>" ></a>
+          <%= cl_image_tag office.user.photo, class: "img-circle office-owner", :width => 50, :height => 50 %>
+        </div>
+        <div class="card-body">
+          <h4><%= link_to office.name, office_path(office.id) %></h4>
+          <ul class="list-inline">
+            <li><p class="card-description"><strong><%= office.desks.first.price %>€</strong> per desk</p></li>
+            <li>
+              <p>
+                <% office.reviews.average(:rating).to_i.times do %>
+                  <i class="fas fa-star"></i>
+                <% end %>
+                <% (5 - office.reviews.average(:rating).to_i).times do %>
+                  <i class="far fa-star"></i>
+                <% end %>
+              </p>
+            </li>
+          </ul>
+          <p class="address"><%= office.zipcode %> <%= office.city %></p>
         </div>
       </div>
-    <% end %>
-    </div>
+  <% end %>
   </div>
 
-    <div
-    id="map"
-    style="width: 100%;
-    height: 600px; margin-top: 50px;"
-    data-markers="<%= @markers.to_json %>">
-    </div>
-  </div>
-
-</div>
-
-
-<br>
-
-<div class="description-banner">
-  <div class="container">
-  <h3>Want to know more about us?</h3>
-  <br>
-    <p> Click and Work was created by 4 students at Le Wagon Paris to make everything great again. Now you can find the best places in France to work on your own or with your team, whenever you want.</p>
+  <div
+  class="map"
+  id="map"
+  style="width: 100%;
+  height: 600px; margin-top: 50px;"
+  data-markers="<%= @markers.to_json %>">
   </div>
 </div>
+
 
