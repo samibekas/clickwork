@@ -1,9 +1,15 @@
 <%= simple_form_for @office do |f| %>
   <%= f.input :name %>
   <%= f.input :description %>
+  <%= f.input :category, collection: Office::CATEGORIES %>
   <%= f.input :address %>
+  <%= f.input :zipcode, as: :hidden %>
+  <%= f.input :city, as: :hidden %>
+  <%= f.input :country, as: :hidden %>
   <%= f.input :capacity_max %>
+  <%= f.input :photo %>
   <%= f.input :price_per_desk, as: :fake %>
+  <%= f.input :photo_cache, as: :hidden %>
   <%= f.submit "Edit office", class: "btn btn-primary" %>
 <% end %>
 
