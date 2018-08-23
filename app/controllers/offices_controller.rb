@@ -25,6 +25,7 @@ class OfficesController < ApplicationController
     authorize @office
     @review = Review.new
     @reviews = Review.where(office_id: @office.id)
+    average_rating
 
     @markers =
       [{
@@ -104,6 +105,18 @@ class OfficesController < ApplicationController
   end
 
   private
+
+   def average_rating
+    sum_ratings = 0
+    @reviews.each do |review|
+      sum_ratings += review.rating
+    end
+    if @reviews.count == 0
+      @average = 0
+    else
+      @average = (sum_ratings) / (@reviews.count)
+    end
+  end
 
   def set_office
     @office = Office.find(params[:id])
