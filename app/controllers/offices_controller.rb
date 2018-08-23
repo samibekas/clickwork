@@ -9,8 +9,8 @@ class OfficesController < ApplicationController
     @markers = @offices_address.map do |office|
       {
         lat: office.latitude,
-        lng: office.longitude#,
-        # infoWindow: { content: render_to_string(partial: "/flats/map_box", locals: { flat: flat }) }
+        lng: office.longitude,
+        infoWindow: { content: render_to_string(partial: "/offices/infowindow", locals: { office: office }) }
       }
     end
 
@@ -38,8 +38,7 @@ class OfficesController < ApplicationController
     @markers =
       [{
         lat: @office.latitude,
-        lng: @office.longitude#,
-        # infoWindow: { content: render_to_string(partial: "/flats/map_box", locals: { flat: flat }) }
+        lng: @office.longitude,
       }]
   end
 
