@@ -44,7 +44,7 @@ label {
     <%= f.input :capacity_max %>
     <%= f.input :photo %>
     <%= f.association :facilities, as: :check_boxes, include_blank: false, include_hidden: false %>
-    <%= f.input :price_per_desk, as: :fake %>
+    <%= f.input :price %>
     <%= f.input :photo_cache, as: :hidden %>
     <%= f.submit "Add an office", class: "btn" %>
   <% end %>

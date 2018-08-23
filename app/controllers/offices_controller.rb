@@ -1,6 +1,6 @@
 class OfficesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
-  before_action :set_office, only: [:show, :edit, :update, :destroy]
+  before_action :set_office, only: [:show, :edit, :update, :destroy, :booking_available?]
 
   def index
     @offices = policy_scope(Office).order(created_at: :desc)
@@ -18,7 +18,6 @@ class OfficesController < ApplicationController
         infoWindow: { content: render_to_string(partial: "/offices/infowindow", locals: { office: office }) }
       }
     end
-
   end
 
   def myoffices
@@ -32,6 +31,7 @@ class OfficesController < ApplicationController
     @review = Review.new
     @reviews = Review.where(office_id: @office.id)
     average_rating
+    return_array_of_unavailable_dates
 
     @markers =
       [{
@@ -43,8 +43,8 @@ class OfficesController < ApplicationController
   def new
     @office = Office.new
     @review = Review.new
-    @desk = Desk.new
-    @desk.office = @office
+    # @desk = Desk.new
+    # @desk.office = @office
     authorize @office
   end
 
@@ -54,13 +54,12 @@ class OfficesController < ApplicationController
     authorize @office
     if @office.save
       @office.facilities << Facility.find(params["office"]["facility_ids"])
-      @office.capacity_max.times do
-        desk = Desk.new(
-          office_id: @office.id,
-          price: params[:price_per_desk]
-        )
-        desk.save!
-      end
+      # @office.capacity_max.times do
+      #   desk = Desk.new(
+      #     office_id: @office.id,
+      #     price: params[:price_per_desk]
+      #   )
+        # desk.save!
       redirect_to office_path(@office)
     else
       render :new
@@ -69,8 +68,8 @@ class OfficesController < ApplicationController
 
   def edit
     authorize @office
-    @desk = Desk.new
-    @desk.office = @office
+    # @desk = Desk.new
+    # @desk.office = @office
   end
 
   def update
@@ -78,25 +77,24 @@ class OfficesController < ApplicationController
 
     @old_office = @office.capacity_max
 
-    if @office.update(office_params)
-      if @old_office > @office.capacity_max
-        number_of_desks = @old_office - @office.capacity_max
-        @office.desks.where(available: true).take(number_of_desks).each(&:destroy)
-      else
-        number_of_desks = @office.capacity_max - @old_office
-        number_of_desks.times do
-          desk = Desk.new(
-            office_id: @office.id,
-            price: params[:price_per_desk]
-          )
-          desk.save!
-        end
-      end
-      @office.desks.each do |desk|
-        desk.update(price: params[:price_per_desk])
-      end
+    @office.update(office_params)
+      # if @old_office > @office.capacity_max
+      #   number_of_desks = @old_office - @office.capacity_max
+      #   @office.desks.where(available: true).take(number_of_desks).each(&:destroy)
+      # else
+      #   number_of_desks = @office.capacity_max - @old_office
+      #   number_of_desks.times do
+      #     desk = Desk.new(
+      #       office_id: @office.id,
+      #       price: params[:price_per_desk]
+      #     )
+      #     desk.save!
+      #   end
+      # end
+      # @office.desks.each do |desk|
+      #   desk.update(price: params[:price_per_desk])
+      # end
       redirect_to myoffices_offices_path
-    end
   end
 
   def destroy
@@ -107,6 +105,16 @@ class OfficesController < ApplicationController
     else
       redirect_to myoffices_offices_path
     end
+  end
+
+  def return_array_of_unavailable_dates
+    now = Date.today
+    date_range = (now..now>>6).map{ |date| date.strftime("%Y-%m-%d") }
+    @notavailable = date_range.select{ |date| booking_unavailable?(date)}
+  end
+
+  def booking_unavailable?(date)
+    @office.capacity_max <= Booking.where(dates: date, office_id: params[:office_id]).count
   end
 
   private
@@ -130,5 +138,6 @@ class OfficesController < ApplicationController
   def office_params
     params.require(:office).permit(:description, :capacity_max, :user_id, :address, :zipcode, :city, :country ,:name, :photo, :category, :facilities)
   end
+
 end
 

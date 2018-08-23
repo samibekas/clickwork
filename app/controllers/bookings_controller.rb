@@ -17,7 +17,6 @@ class BookingsController < ApplicationController
     #   redirect_to office_path(@office)
     #   flash[:alert] = "Please specify a date"
     # end
-
     @office = Office.find(params[:office_id])
     authorize @office
     if current_user == @office.user
