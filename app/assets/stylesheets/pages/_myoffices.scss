@@ -35,3 +35,7 @@ a{
   top: 20px;
   left: 20px;
 }
+
+.content {
+  min-height: calc(100vh - 170px);
+}
