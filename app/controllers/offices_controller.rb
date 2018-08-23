@@ -8,6 +8,7 @@ class OfficesController < ApplicationController
 
     if params[:office].present?
       sql_query = "city ILIKE ? AND category ILIKE ?"
+      @offices = Office.where(sql_query, "%#{params[:office]["where"]}%", "%#{params[:office]["category"]}%" )
       @offices_address = Office.where(sql_query, "%#{params[:office]["where"]}%", "%#{params[:office]["category"]}%" )
     end
 
