@@ -7,10 +7,15 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-
-
-
-
+Facility.create(name: "wifi")
+Facility.create(name: "coffee")
+Facility.create(name: "projector")
+Facility.create(name: "printer")
+Facility.create(name: "AC")
+Facility.create(name: "computer")
+Facility.create(name: "scanner")
+Facility.create(name: "fridge")
+Facility.create(name: "lift")
 # require 'faker'
 # puts 'Creating 20 fake users...'
 

@@ -29,8 +29,11 @@
             <% end %>
           <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
             <li>
-              <%= link_to "#" do %>
-                <i class="fa fa-user"></i> <%= t(".profile", default: "Profile") %>
+              <%= link_to user_path(current_user) do %>
+              <ul class="list-inline">
+                <li><i class="fa fa-user"></i>  Profile</li>
+              </ul>
+                <%#= t(".profile", default: "Profile") %>
               <% end %>
             </li>
             <li>

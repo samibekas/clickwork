@@ -33,6 +33,7 @@ class OfficesController < ApplicationController
     authorize @office
     @review = Review.new
     @reviews = Review.where(office_id: @office.id)
+    average_rating
 
     @markers =
       [{
@@ -55,6 +56,7 @@ class OfficesController < ApplicationController
     @office.user = current_user
     authorize @office
     if @office.save
+      @office.facilities << Facility.find(params["office"]["facility_ids"])
       @office.capacity_max.times do
         desk = Desk.new(
           office_id: @office.id,
@@ -112,12 +114,24 @@ class OfficesController < ApplicationController
 
   private
 
+   def average_rating
+    sum_ratings = 0
+    @reviews.each do |review|
+      sum_ratings += review.rating
+    end
+    if @reviews.count == 0
+      @average = 0
+    else
+      @average = (sum_ratings) / (@reviews.count)
+    end
+  end
+
   def set_office
     @office = Office.find(params[:id])
   end
 
   def office_params
-    params.require(:office).permit(:description, :capacity_max, :user_id, :address, :zipcode, :city, :country ,:name, :photo, :category)
+    params.require(:office).permit(:description, :capacity_max, :user_id, :address, :zipcode, :city, :country ,:name, :photo, :category, :facilities)
   end
 end
 

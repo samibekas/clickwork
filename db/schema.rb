@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 2018_08_23_103145) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +34,21 @@ ActiveRecord::Schema.define(version: 2018_08_23_103145) do
     t.datetime "updated_at", null: false
     t.boolean "available", default: true
     t.index ["office_id"], name: "index_desks_on_office_id"
+  end
+
+  create_table "facilities", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "office_facilities", force: :cascade do |t|
+    t.bigint "office_id"
+    t.bigint "facility_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["facility_id"], name: "index_office_facilities_on_facility_id"
+    t.index ["office_id"], name: "index_office_facilities_on_office_id"
   end
 
   create_table "offices", force: :cascade do |t|
@@ -88,6 +105,8 @@ ActiveRecord::Schema.define(version: 2018_08_23_103145) do
   add_foreign_key "bookings", "desks"
   add_foreign_key "bookings", "users"
   add_foreign_key "desks", "offices"
+  add_foreign_key "office_facilities", "facilities"
+  add_foreign_key "office_facilities", "offices"
   add_foreign_key "offices", "users"
   add_foreign_key "reviews", "offices"
   add_foreign_key "reviews", "users"
