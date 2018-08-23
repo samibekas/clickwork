@@ -36,7 +36,11 @@ label {
   <%= simple_form_for @office do |f| %>
     <%= f.input :name %>
     <%= f.input :description %>
+    <%= f.input :category, collection: Office::CATEGORIES %>
     <%= f.input :address %>
+    <%= f.input :zipcode %>
+    <%= f.input :city %>
+    <%= f.input :country %>
     <%= f.input :capacity_max %>
     <%= f.input :photo %>
     <%= f.input :price_per_desk, as: :fake %>
