@@ -26,7 +26,7 @@
               <li><p class="card-description"><strong><%= office.desks.first.price %>€</strong> per desk</p></li>
               <li>
                 <p>
-                  <% 5.times do %>
+                  <%= office.reviews.average(:rating).to_i.times do %>
                     <i class="fas fa-star"></i>
                   <% end %>
                 </p>
