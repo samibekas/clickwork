@@ -13,6 +13,14 @@ class OfficesController < ApplicationController
         # infoWindow: { content: render_to_string(partial: "/flats/map_box", locals: { flat: flat }) }
       }
     end
+
+    if params[:office].present?
+      sql_query = "city ILIKE ? AND category ILIKE ?"
+      @offices = Office.where(sql_query, "%#{params[:office]["where"]}%", "%#{params[:office]["category"]}%" )
+    else
+      @offices = Office.all
+    end
+
   end
 
   def myoffices
@@ -123,7 +131,7 @@ class OfficesController < ApplicationController
   end
 
   def office_params
-    params.require(:office).permit(:description, :capacity_max, :user_id, :address, :name, :photo, :facilities)
+    params.require(:office).permit(:description, :capacity_max, :user_id, :address, :zipcode, :city, :country ,:name, :photo, :category, :facilities)
   end
 end
 

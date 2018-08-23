@@ -40,7 +40,7 @@ Facility.create(name: "lift")
 
 # i = 0
 
-# # 20.times do
+# 20.times do
 #   user = User.new(
 #     first_name: Faker::FunnyName.name,
 #     last_name: Faker::FunnyName.two_word_name,
@@ -54,7 +54,7 @@ Facility.create(name: "lift")
 #   user.remote_photo_url = url
 #   user.save!
 #   # i += 1
-# # end
+#   end
 
 
 
