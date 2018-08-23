@@ -1,0 +1,27 @@
+<div class="infowindow-container">
+
+  <div class="myimage" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path office.photo %>')">
+    <div class="category"><%= link_to "", office_path(office.id)%>
+    </div>
+    <a class="link" href="/offices/<%=office.id%>" ></a>
+
+  </div>
+
+  <div class="info">
+    <h4><%= link_to office.name, office_path(office.id) %></h4>
+        <ul class="list-inline">
+          <li><p class="description"><strong><%= office.desks.first.price %>€</strong> per desk</p></li>
+          <li>
+            <p>
+              <% office.reviews.average(:rating).to_i.times do %>
+                <i class="fas fa-star"></i>
+              <% end %>
+              <% (5 - office.reviews.average(:rating).to_i).times do %>
+                <i class="far fa-star"></i>
+              <% end %>
+            </p>
+          </li>
+        </ul>
+    <p class="address"><%= office.zipcode %> <%= office.city %></p>
+  </div>
+</div>
