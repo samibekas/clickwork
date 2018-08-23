@@ -1,0 +1,37 @@
+a{
+  color: white;
+  text-decoration: none;
+  &:hover {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+
+.update a {
+  font-size: 14px;
+  background-color: white;
+  color: #747474;
+  padding: 10px 20px;
+  border-radius: 4px;
+}
+
+.big-card {
+  position: relative;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  box-shadow: 0px 0px 4px #ADADAD;
+}
+
+.update {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+.office-name a {
+  font-size: 22px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}

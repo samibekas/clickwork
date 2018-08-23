@@ -20,8 +20,7 @@ ActiveRecord::Schema.define(version: 2018_08_23_083923) do
     t.bigint "desk_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.date "start_at"
-    t.date "end_at"
+    t.date "dates"
     t.index ["desk_id"], name: "index_bookings_on_desk_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
@@ -62,6 +61,8 @@ ActiveRecord::Schema.define(version: 2018_08_23_083923) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.string "photo"
+    t.float "latitude"
+    t.float "longitude"
     t.index ["user_id"], name: "index_offices_on_user_id"
   end
 
