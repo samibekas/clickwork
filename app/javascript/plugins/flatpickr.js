@@ -7,6 +7,10 @@ $("#btn-submit-date").attr("disabled", true);
 flatpickr(".datepicker", {
     mode: "multiple",
     dateFormat: "Y-m-d",
+    "locale": {
+        "firstDayOfWeek": 1 // start week on Monday
+    },
+    minDate: new Date().fp_incr(1),
     onChange: [
         function(selectedDates, dateStr, instance){
             //...
