@@ -40,59 +40,59 @@ Facility.create(name: "lift")
 
 # i = 0
 
-# 20.times do
-  user = User.new(
-    first_name: Faker::FunnyName.name,
-    last_name: Faker::FunnyName.two_word_name,
-    phone_number: Faker::PhoneNumber.cell_phone,
-    description: Faker::Lorem.paragraph(2),
-    email: Faker::Internet.email,
-    password: '123456'
-  )
-  user.save
-  url = "https://res.cloudinary.com/dls4bo2ix/image/upload/v1534853052/220px-Angela_Merkel_Juli_2010_-_3zu4__cropped_2.jpg"
-  user.remote_photo_url = url
-  user.save!
-  # i += 1
+# # 20.times do
+#   user = User.new(
+#     first_name: Faker::FunnyName.name,
+#     last_name: Faker::FunnyName.two_word_name,
+#     phone_number: Faker::PhoneNumber.cell_phone,
+#     description: Faker::Lorem.paragraph(2),
+#     email: Faker::Internet.email,
+#     password: '123456'
+#   )
+#   user.save
+#   url = "https://res.cloudinary.com/dls4bo2ix/image/upload/v1534853052/220px-Angela_Merkel_Juli_2010_-_3zu4__cropped_2.jpg"
+#   user.remote_photo_url = url
+#   user.save!
+#   # i += 1
+# # end
+
+
+
+
+# seeds_offices_images = ["https://i.officeriders.com/thrC8xbogEmvHqTQ9-800-*-jpg.jpg",
+#     "https://i.officeriders.com/low/s6Xm3qebhWXHshNdh-600-*-jpg.jpg",
+#     "https://i.officeriders.com/low/WeopeDiZ7nTk3PZJ3-600-*-jpg.jpg",
+#     "https://i.officeriders.com/low/kwRij9N7Jnejagj7j-600-*-jpg.jpg",
+#     "https://i.officeriders.com/low/eLwNaYb8PGqtiaoBC-600-*-jpg.jpg",
+#     "https://i.officeriders.com/low/9GD4MaSDJRbttpjku-600-*-jpg.jpg",
+#     "https://i.officeriders.com/low/TfePM5sRhpPfFarQ5-600-*-jpg.jpg",
+#     "https://i.officeriders.com/low/AJZ4oEhTTFkzcf6yh-600-*-jpg.jpg",
+#     "https://i.officeriders.com/low/7FXgfshp6gYjwiiZP-600-*-jpg.jpg",
+#     "https://i.officeriders.com/low/n57yWeZS9q4Mu8NNM-600-*-jpg.jpg"
+# ]
+
+# i = 1
+
+# puts 'Creating 10 fake offices...'
+# 10.times do
+#   office = Office.new(
+#     name:    Faker::Company.name,
+#     description: Faker::Lorem.paragraph(2),
+#     address: "#{Faker::Address.street_address}, #{Faker::Address.city}",
+#     capacity_max: 10,
+#     photo: seeds_offices_images[i],
+#     user_id: 1
+#   )
+#   office.capacity_max.times do
+#     Desk.new(
+#       office_id: i,
+#       price: 10
+#       )
+#   end
+#   office.save
+#   url = seeds_offices_images[i]
+#   office.remote_photo_url = url
+#   office.save!
+#   i += 1
 # end
-
-
-
-
-seeds_offices_images = ["https://i.officeriders.com/thrC8xbogEmvHqTQ9-800-*-jpg.jpg",
-    "https://i.officeriders.com/low/s6Xm3qebhWXHshNdh-600-*-jpg.jpg",
-    "https://i.officeriders.com/low/WeopeDiZ7nTk3PZJ3-600-*-jpg.jpg",
-    "https://i.officeriders.com/low/kwRij9N7Jnejagj7j-600-*-jpg.jpg",
-    "https://i.officeriders.com/low/eLwNaYb8PGqtiaoBC-600-*-jpg.jpg",
-    "https://i.officeriders.com/low/9GD4MaSDJRbttpjku-600-*-jpg.jpg",
-    "https://i.officeriders.com/low/TfePM5sRhpPfFarQ5-600-*-jpg.jpg",
-    "https://i.officeriders.com/low/AJZ4oEhTTFkzcf6yh-600-*-jpg.jpg",
-    "https://i.officeriders.com/low/7FXgfshp6gYjwiiZP-600-*-jpg.jpg",
-    "https://i.officeriders.com/low/n57yWeZS9q4Mu8NNM-600-*-jpg.jpg"
-]
-
-i = 1
-
-puts 'Creating 10 fake offices...'
-10.times do
-  office = Office.new(
-    name:    Faker::Company.name,
-    description: Faker::Lorem.paragraph(2),
-    address: "#{Faker::Address.street_address}, #{Faker::Address.city}",
-    capacity_max: 10,
-    photo: seeds_offices_images[i],
-    user_id: 1
-  )
-  office.capacity_max.times do
-    Desk.new(
-      office_id: i,
-      price: 10
-      )
-  end
-  office.save
-  url = seeds_offices_images[i]
-  office.remote_photo_url = url
-  office.save!
-  i += 1
-end
 
