@@ -31,12 +31,12 @@
     <div class="fixed">
       <div class="book">
         <ul class="list-inline">
-          <li><p><span><strong><%= @office.capacity_max%></span></strong> seats available</p></li>
-          <li><p><span><strong><%= @office.desks.first.price %>€</span></strong> per desk</p></li>
+          <li><p><span><strong><%= @office.capacity_max%></span></strong> seats capacity</p></li>
+          <li><p><span><strong><%= @office.price %>€</span></strong> per desk</p></li>
         </ul>
         <hr>
 
-        <div class="book-form" data-dates=<%= @books %>>
+        <div id="book-form" data-dates='<%= @notavailable.to_json %>'>
           <%= simple_form_for [@office, @booking] do |f| %>
             <%= f.input :dates, as: :string, required: true, input_html: {class: "datepicker"} %>
             <%= f.submit "Book a desk", class: "btn", id: "btn-submit-date" %>
