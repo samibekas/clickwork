@@ -22,9 +22,16 @@
         <p><%= @office.user.first_name %></p>
       </div>
     </div>
+
+    <div class="secondary-info">
+      <h4>DESCRIPTION:</h4>
+      <p><%= @office.description %></p>
+    </div>
+
+    <div class="fixed">
       <div class="book">
         <ul class="list-inline">
-          <li><p><span><strong><%= @office.capacity_max%></span></strong> seats</p></li>
+          <li><p><span><strong><%= @office.capacity_max%></span></strong> seats available</p></li>
           <li><p><span><strong><%= @office.desks.first.price %>€</span></strong> per desk</p></li>
         </ul>
         <hr>
@@ -107,3 +114,6 @@
   height: 300px;"
   data-markers="<%= @markers.to_json %>"
 ></div>
+
+
+

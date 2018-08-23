@@ -54,7 +54,7 @@ Facility.create(name: "lift")
 #   user.remote_photo_url = url
 #   user.save!
 #   # i += 1
-# # end
+#   end
 
 
 
