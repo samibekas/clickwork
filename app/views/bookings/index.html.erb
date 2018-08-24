@@ -45,9 +45,16 @@
         <p><strong>Please respond to renter request</strong></p>
       </div>
       <div class="message-status">
-        <p class="status pending"><%= booking.status %></p>
+        <%if booking.status == "Pending" %>
+          <p class="status pending" style="color: orange !important;">Pending</p>
+        <% elsif  booking.status == "Confirmed" %>
+          <p class="status pending" style="color: green !important;">Confirmed</p>
+        <% else %>
+          <p class="status pending" style="color: red !important;">Rejected</p>
+        <% end %>
         <p class="price"><%= Office.find(booking.office_id).price %>€</p>
-        <%= link_to "Confirm", myoffices_offices_path, class: "navbar-wagon-item navbar-wagon-link" %>
+        <%= link_to "Confirm", confirm_booking_path(booking.id), method: 'put', class: "btn btn-success" %>
+        <%= link_to "Reject", reject_booking_path(booking.id), method: 'put', class: "btn btn-danger" %>
       </div>
     </div>
     <% end %>
