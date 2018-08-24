@@ -1,0 +1,34 @@
+<% @bookings_user.each do |booking| %>
+
+  <ul>
+    <%= booking.status %>
+    <%= booking.dates %>
+    Booked by: <%= User.find(booking.user_id).first_name %>
+    <%= Office.find(booking.office_id).name %>
+    Owner: <%= User.find(Office.find(booking.office_id).user_id).first_name %>
+    Booked: <%= booking.created_at %>
+    --------
+  </ul>
+
+<% end %>
+
+
+
+----------
+----------
+
+<% @bookings_owner.each do |booking| %>
+
+  <ul>
+    <%= booking.status %>
+    <%= booking.dates %>
+    Booked by: <%= User.find(booking.user_id).first_name %>
+    <%= Office.find(booking.office_id).name %>
+    Owner: <%= User.find(Office.find(booking.office_id).user_id).first_name %>
+    Booked: <%= booking.created_at %>
+    <%= link_to "Confirm", myoffices_offices_path, class: "navbar-wagon-item navbar-wagon-link" %>
+    --------
+  </ul>
+
+<% end %>
+
