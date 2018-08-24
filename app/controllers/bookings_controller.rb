@@ -1,6 +1,6 @@
 class BookingsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
-  before_action :set_booking, only: [:show, :edit, :update, :destroy]
+  before_action :set_booking, only: [:show, :edit, :update, :destroy, :confirm, :reject]
 
   def index
     @bookings_user = policy_scope(Booking.where(user_id: current_user)).order(dates: :desc)
@@ -55,8 +55,18 @@ class BookingsController < ApplicationController
     end
   end
 
-  def update
+  def confirm
+    authorize @booking
+    @booking.status = "Confirmed"
+    @booking.save
+    redirect_to bookings_path
+  end
 
+  def reject
+    authorize @booking
+    @booking.status = "Rejected"
+    @booking.save
+    redirect_to bookings_path
   end
 
   private
