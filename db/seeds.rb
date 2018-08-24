@@ -72,6 +72,8 @@ Facility.create(name: "fridge")
 
 # i = 1
 
+# category_array = ["Event", "Meeting", "Coworking", "Event", "Meeting", "Coworking", "Event", "Meeting", "Coworking", "Meeting" ]
+
 # puts 'Creating 10 fake offices...'
 # 10.times do
 #   office = Office.new(
@@ -81,6 +83,8 @@ Facility.create(name: "fridge")
 #     capacity_max: 10,
 #     photo: seeds_offices_images[i],
 #     user_id: 1
+#     category: category_array[i]
+#     facility_ids: [1, 2]
 #   )
 #   office.capacity_max.times do
 #     Desk.new(

@@ -51,8 +51,9 @@
       </div>
     <% else %>
       <!-- Login link (when logged out) -->
-      <%= link_to "Add an office", new_office_path, class: "navbar-wagon-item navbar-wagon-link" %>
-      <%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-wagon-item navbar-wagon-link" %>
+      <%= link_to t(".sign_in", default: "Login"), new_user_session_path, "data-toggle" => "modal", "data-target"=>"#modaldevise", class: "navbar-wagon-item navbar-wagon-link" %>
+
+
     <% end %>
   </div>
 
