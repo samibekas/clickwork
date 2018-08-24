@@ -1,38 +1,99 @@
-.tabs {
-  background: #53443F;
+.my-bookings {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.message {
   display: flex;
-  padding: 10px 10px 0 10px
+  align-items: center;
+  padding: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(220,224,244,0.4);
+  box-shadow: 0px 0px 3px #ADADAD;
+  border-radius: 4px;
 }
-.tabs a {
-  color: white;
+.message:last-child {
+  border-bottom: none;
 }
-.tabs a:hover {
-  cursor: pointer;
-  text-decoration: none;
-  opacity: 0.8;
+.message-body {
+  flex-grow: 1;
 }
-.tabs h3 {
-  font-size: 17px;
+.message-name {
+  padding-left: 10px;
+  min-width: 100px;
+}
+.message-name h3 {
+  font-size: 13px;
+  margin-bottom: 0px;
+}
+.message-name p {
+  font-size: 13px;
+  font-weight: lighter;
+  opacity: 0.6;
+  margin-top: 5px;
+}
+.message-body {
+  padding-left: 10px;
+  font-size: 13px;
+  color: rgba(0,0,0,0.7);
+}
+.message-body {
+  padding-left: 60px;
+  color: rgba(0,0,0,0.4);
+}
+.message-body strong{
+  color: rgba(0,0,0,0.9);
+  color: rgba(0,0,0,0.9);
+}
+.message-body p {
+  margin: 6px 0;
+}
+.message-status {
+  font-size: 14px;
   font-weight: bold;
-  margin-top: 0;
 }
-.tabs p {
-  opacity: 0.5;
-  margin-bottom: 0;
+.status.accepted {
+  color: #04A366;
+}
+.status.declined {
+  color: red;
+}
+.status.pending {
+  color: orange;
 }
 .tab {
-  background: #756A66;
-  flex: 0 0 25%;
-  text-align: center;
-  padding: 20px 0;
+    margin: 0px 112px;
+    background-color: #f1f1f1;
 }
-.tab:first-child {
-  border-radius: 10px 0 0 0;
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    border-radius: 2px;
 }
-.tab:last-child {
-  border-radius: 0 10px 0 0;
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
 }
-.tab.active {
-  background: white;
-  color: black;
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
 }
