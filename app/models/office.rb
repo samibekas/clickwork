@@ -1,9 +1,9 @@
 class Office < ApplicationRecord
   belongs_to :user
+  has_many :office_facilities, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :desks, dependent: :destroy
   has_many :bookings, through: :desks
-  has_many :office_facilities
   has_many :facilities, through: :office_facilities
   mount_uploader :photo, PhotoUploader
   geocoded_by :address
