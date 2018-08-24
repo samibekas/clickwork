@@ -89,48 +89,12 @@
       <% if @reviews.nil? %>
         <p>No reviews Yet</p>
       <% else %>
-          <ul class="list-inline">
-            <% @reviews.each do |review| %>
-            <div class="comment">
-                <li>
-                  <div class="commenter-info">
-                    <div class="commenter-avatar">
-                      <%= cl_image_tag review.user.photo, class: "img-circle", :width => 60, :height => 60 %>
-                    </div>
-                    <div class="commenter-name">
-                      <p><%= review.user.first_name %></p>
-                      <div class="comment-date">
-                        <p><%= review.created_at.strftime("%B") %> <%= review.created_at.year %></p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="comment-content">
-                    <p><%= review.comment %></p>
-                    <% review.rating.times do %>
-                       <i class="fas fa-star"></i>
-                    <% end %>
-                  </div>
-                </li>
-                <hr>
-              <% end %>
-            </div>
-          </ul>
-      <% end %>
-      <div class="form-comment">
-        <%= simple_form_for [@office, @review] do |f| %>
-          <%= f.input :comment %>
-          <div style="padding-bottom: 1.5em;">
-            <p style="font-size: 14px; color: #747474; font-weight: bold;">Reviews</p>
-            <span class="rating">
-              <%= f.collection_radio_buttons :rating, [[5], [4], [3], [2], [1]], :first, :last, item_wrapper_tag: false, boolean_style: :inline do |b| %>
-                <%= b.radio_button + b.label {''} %>
-              <% end %>
-            </span>
-          </div>
-          <%= f.submit "Add a review", class: "btn" %>
+        <% @reviews.each do |review| %>
+          <%= render 'reviews/show', review: review %>
         <% end %>
-      </div>
+      <% end %>
     </div>
+    <%= render 'reviews/form', office: @office, review: @review %>
   </div>
 </div>
 

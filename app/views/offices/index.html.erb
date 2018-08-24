@@ -40,7 +40,7 @@
           <div class="card-category"><%= link_to "", office_path(office.id)%>
           </div>
           <a class="card-link" href="/offices/<%=office.id%>" ></a>
-          <%= cl_image_tag office.user.photo, class: "img-circle office-owner", :width => 50, :height => 50 %>
+          <%= cl_image_tag office.user.photo, class: "img-circle office-owner", :width => 40, :height => 40 %>
         </div>
         <div class="card-body">
           <h4><%= link_to office.name, office_path(office.id) %></h4>

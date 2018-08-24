@@ -1,0 +1,20 @@
+<div class="comment">
+    <div class="commenter-info">
+      <div class="commenter-avatar">
+        <%= cl_image_tag review.user.photo, class: "img-circle", :width => 60, :height => 60 %>
+      </div>
+      <div class="commenter-name">
+        <p><%= review.user.first_name %></p>
+        <div class="comment-date">
+          <p><%= review.created_at.strftime("%B") %> <%= review.created_at.year %></p>
+        </div>
+      </div>
+    </div>
+    <div class="comment-content">
+      <p><%= review.comment %></p>
+      <% review.rating.times do %>
+         <i class="fas fa-star"></i>
+      <% end %>
+    </div>
+  <hr>
+</div>
