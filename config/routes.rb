@@ -14,7 +14,10 @@ Rails.application.routes.draw do
 
   resources :desks
 
-  resources :bookings, only: [:index, :show]
+  resources :bookings, only: [:index, :show, :confirm]
 
   resources :users, only: [:show]
+
+  put 'bookings/:id/confirm', to: 'bookings#confirm', as: :confirm_booking
+  put 'bookings/:id/reject', to: 'bookings#reject', as: :reject_booking
 end
