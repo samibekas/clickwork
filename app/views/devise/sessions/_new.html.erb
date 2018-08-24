@@ -1,15 +1,45 @@
+<style>
+.modal-content {
+  text-align: center;
+  border-radius: 5px;
+  height: 400px;
+  width: 350px;
+}
+
+.actions > input {
+  margin: 10px;
+  background-color: #1f535d;
+  color: white;
+  font-size: 16px;
+  font-weight: 800;
+  width: 50%;
+  border-radius: 4px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  opacity: 0.6;
+  transition: all 0.3s ease-out;
+  }
+  input:hover {
+    opacity: 1;
+  }
+}
+
+a {
+  font-size: 12px;
+}
+
+</style>
+
 <div id=”modal” class=”modal fade”></div>
 
 <div class="modal-dialog modal-sm">
  <div class="modal-content">
   <div class="modal-header">
    <button class="close" data-dismiss="modal">x</button>
-   <h2 class="dark">Log in</h2>
+   <h2>Log in</h2>
  </div>
+
  <div class="modal-body">
-
-<h2>Log in</h2>
-
 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="form-inputs">
     <%= f.input :email,
@@ -21,9 +51,9 @@
                 input_html: { autocomplete: "current-password" } %>
     <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
   </div>
-
+<br>
   <div class="form-actions">
-    <%= f.button :submit, "Log in" %>
+    <%= f.button :submit, "Log in", id: "btn-login" %>
   </div>
 <% end %>
 
@@ -32,3 +62,4 @@
   </div>
  </div>
 </div>
+
