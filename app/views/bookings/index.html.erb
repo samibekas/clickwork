@@ -26,7 +26,8 @@
     <%= Office.find(booking.office_id).name %>
     Owner: <%= User.find(Office.find(booking.office_id).user_id).first_name %>
     Booked: <%= booking.created_at %>
-    <%= link_to "Confirm", myoffices_offices_path, class: "navbar-wagon-item navbar-wagon-link" %>
+    <%= link_to "Confirm", confirm_booking_path(booking.id), method: 'put', class: "navbar-wagon-item navbar-wagon-link" %>
+    <%= link_to "Reject", reject_booking_path(booking.id), method: 'put', class: "navbar-wagon-item navbar-wagon-link" %>
     --------
   </ul>
 
