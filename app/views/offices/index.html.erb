@@ -45,7 +45,7 @@
         <div class="card-body">
           <h4><%= link_to office.name, office_path(office.id) %></h4>
           <ul class="list-inline">
-            <li><p class="card-description"><strong><%= office.price %>€</strong> per desk</p></li>
+            <li><p class="card-description"><strong><%= office.price %>€</strong> per day</p></li>
             <li>
               <p>
                 <% office.reviews.average(:rating).to_i.times do %>
