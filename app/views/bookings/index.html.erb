@@ -1,34 +1,82 @@
-<% @bookings_user.each do |booking| %>
+<div class="tab">
+  <button class="tablinks" onclick="openCity(event, 'London')">My bookings</button>
+  <button class="tablinks" onclick="openCity(event, 'Paris')">My guests</button>
+</div>
 
-  <ul>
-    <%= booking.status %>
-    <%= booking.dates %>
-    Booked by: <%= User.find(booking.user_id).first_name %>
-    <%= Office.find(booking.office_id).name %>
-    Owner: <%= User.find(Office.find(booking.office_id).user_id).first_name %>
-    Booked: <%= booking.created_at %>
-    --------
-  </ul>
+<div id="London" class="tabcontent">
+  <div class="container my-bookings" id="my-bookings">
+    <% @bookings_user.each do |booking| %>
+    <h4>You booked a desk at</h4>
+    <div class="message">
+      <% owner_pics = User.find(Office.find(booking.office_id).user_id).photo %>
+      <%= cl_image_tag owner_pics, class: "img-circle", :width => 60, :height => 60 %>
+      <div class="message-name">
+        <h3 style="text-align: left !important;"><%= User.find(Office.find(booking.office_id).user_id).first_name %>'s</h3>
+        <p>For <%= booking.dates %></p>
+      </div>
+      <div class="message-body">
+        <p><strong>Owner still didn't respond</strong></p>
+        <p>
+          You should recieve a message when <%= User.find(Office.find(booking.office_id).user_id).first_name %> responds
+        </p>
+      </div>
+      <div class="message-status">
+        <p class="status pending"><%= booking.status %></p>
+        <p class="price"><%= Office.find(booking.office_id).price %>€</p>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
 
-<% end %>
+<div id="Paris" class="tabcontent">
+  <div class="container my-bookings" id="my-bookings">
+    <% @bookings_owner.each do |booking| %>
+    <h4>Pending bookings at your place</h4>
+    <div class="message">
+      <% owner_pics = User.find(Office.find(booking.office_id).user_id).photo %>
+      <%= cl_image_tag owner_pics, class: "img-circle", :width => 60, :height => 60 %>
+      <div class="message-name">
+        <h3 style="text-align: left !important;">Your place</h3>
+        <p>For <%= booking.dates %></p>
+      </div>
+      <div class="message-body">
+        <%  %>
+        <p><strong>Please respond to renter request</strong></p>
+      </div>
+      <div class="message-status">
+        <%if booking.status == "Pending" %>
+          <p class="status pending" style="color: orange !important;">Pending</p>
+        <% elsif  booking.status == "Confirmed" %>
+          <p class="status pending" style="color: green !important;">Confirmed</p>
+        <% else %>
+          <p class="status pending" style="color: red !important;">Rejected</p>
+        <% end %>
+        <p class="price"><%= Office.find(booking.office_id).price %>€</p>
+        <%= link_to "Confirm", confirm_booking_path(booking.id), method: 'put', class: "btn btn-success" %>
+        <%= link_to "Reject", reject_booking_path(booking.id), method: 'put', class: "btn btn-danger" %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+</script>
 
 
 
-----------
-----------
-
-<% @bookings_owner.each do |booking| %>
-
-  <ul>
-    <%= booking.status %>
-    <%= booking.dates %>
-    Booked by: <%= User.find(booking.user_id).first_name %>
-    <%= Office.find(booking.office_id).name %>
-    Owner: <%= User.find(Office.find(booking.office_id).user_id).first_name %>
-    Booked: <%= booking.created_at %>
-    <%= link_to "Confirm", myoffices_offices_path, class: "navbar-wagon-item navbar-wagon-link" %>
-    --------
-  </ul>
-
-<% end %>
 

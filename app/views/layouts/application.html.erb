@@ -13,10 +13,12 @@
   </head>
   <body>
     <%= render 'shared/navbar' %>
-    <%= render 'shared/flashes' %>
-    <%= yield %>
-    <div id="modaldevise" class="modal fade">
-      <%= render 'devise/sessions/new' %>
+    <div class="layout-container">
+      <%= render 'shared/flashes' %>
+      <%= yield %>
+      <div id="modaldevise" class="modal fade">
+        <%= render 'devise/sessions/new' %>
+      </div>
     </div>
     <%= render 'shared/footer' %>
     <%= javascript_include_tag 'application' %>

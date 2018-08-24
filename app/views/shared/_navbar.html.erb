@@ -14,6 +14,9 @@
         <%= link_to "My offices", myoffices_offices_path, class: "navbar-wagon-item navbar-wagon-link" %>
         <%= link_to "My bookings", bookings_path, class: "navbar-wagon-item navbar-wagon-link" %>
       <% end %>
+      <% unless Booking.where(user_id: current_user).empty? %>
+        <%= link_to "My bookings", bookings_path, class: "navbar-wagon-item navbar-wagon-link" %>
+      <% end %>
       <!-- Links when logged in -->
       <%#= link_to "Host", "#", class: "navbar-wagon-item navbar-wagon-link" %>
       <%#= link_to "Trips", "#", class: "navbar-wagon-item navbar-wagon-link" %>
