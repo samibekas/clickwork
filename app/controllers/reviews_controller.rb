@@ -8,9 +8,15 @@ class ReviewsController < ApplicationController
     authorize @review
 
     if @review.save
-      redirect_to office_path(@office)
+      respond_to do |format|
+        format.html { redirect_to office_path(@office) }
+        format.js  # <-- will render `app/views/reviews/create.js.erb`
+      end
     else
-      render 'offices/new'
+      respond_to do |format|
+        format.html { render 'offices/show' }
+        format.js  # <-- idem
+      end
     end
   end
 
