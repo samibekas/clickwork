@@ -2,6 +2,17 @@ class BookingsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
 
+  def index
+    @bookings_user = policy_scope(Booking.where(user_id: current_user)).order(dates: :desc)
+
+    current_user_offices = Office.where(user_id: current_user)
+
+    @bookings_owner = policy_scope(Booking.where(office_id: current_user_offices)).order(created_at: :desc)
+
+    authorize @bookings_user
+    authorize @bookings_owner
+  end
+
   def new
     @booking = Booking.new
     @books = []
@@ -19,6 +30,7 @@ class BookingsController < ApplicationController
     # end
     @office = Office.find(params[:office_id])
     authorize @office
+
     if current_user == @office.user
       redirect_to office_path(@office)
       flash[:alert] = "You can't book your own place"
@@ -31,6 +43,8 @@ class BookingsController < ApplicationController
         @booking = Booking.new()
         @booking.user = current_user
         @booking.dates = date
+        @booking.office_id = @office.id
+        @booking.status = "Pending"
         authorize @booking
         @booking.save
         flash[:notice] = "Booking confirmed!"
@@ -39,6 +53,10 @@ class BookingsController < ApplicationController
       end
       redirect_to office_path(@office)
     end
+  end
+
+  def update
+
   end
 
   private

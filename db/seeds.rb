@@ -6,15 +6,18 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+Facility.destroy_all
 
-Facility.create(name: "wifi")
-Facility.create(name: "coffee")
-Facility.create(name: "projector")
-Facility.create(name: "printer")
-Facility.create(name: "air conditioner")
-Facility.create(name: "computer")
-Facility.create(name: "scanner")
-Facility.create(name: "fridge")
+wifi = Facility.create(name: "wifi")
+coffee = Facility.create(name: "coffee")
+projector = Facility.create(name: "projector")
+printer = Facility.create(name: "printer")
+ac = Facility.create(name: "air conditioner")
+computer = Facility.create(name: "computer")
+scanner = Facility.create(name: "scanner")
+fridge = Facility.create(name: "fridge")
+
+
 # require 'faker'
 # puts 'Creating 20 fake users...'
 
@@ -79,12 +82,14 @@ Facility.create(name: "fridge")
 #   office = Office.new(
 #     name:    Faker::Company.name,
 #     description: Faker::Lorem.paragraph(2),
-#     address: "#{Faker::Address.street_address}, #{Faker::Address.city}",
+#     address: "#{Faker::Address.street_address}, Paris, France",
+#     city: "Paris",
+#     zipcode: "75011",
+#     country: "France",
 #     capacity_max: 10,
-#     photo: seeds_offices_images[i],
-#     user_id: 1
-#     category: category_array[i]
-#     facility_ids: [1, 2]
+#     user_id: 1,
+#     category: category_array[2],
+#     facility_ids: [wifi, coffee, projector, printer, ac, computer, scanner, fridge].sample
 #   )
 #   office.capacity_max.times do
 #     Desk.new(
