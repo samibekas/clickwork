@@ -3,10 +3,55 @@
   <button class="tablinks" onclick="openCity(event, 'Paris')">My guests</button>
 </div>
 
+
+
 <div id="London" class="tabcontent">
-  <div class="container my-bookings" id="my-bookings">
-    <% @bookings_user.each do |booking| %>
-    <h4>You booked a desk at</h4>
+
+
+    <div class="tabtitle">
+      <h4>Your confirmed bookings</h4>
+    </div>
+
+    <div class="container my-bookings pending" id="my-bookings">
+      <% @bookings_user.select{ |book| book.status = "Confirmed"}.each do |booking| %>
+      <div class="message">
+        <% owner_pics = User.find(Office.find(booking.office_id).user_id).photo %>
+        <%= cl_image_tag owner_pics, class: "img-circle", :width => 60, :height => 60 %>
+        <div class="message-name">
+          <h3 style="text-align: left !important;"><%= User.find(Office.find(booking.office_id).user_id).first_name %>'s</h3>
+          <p>For <%= booking.dates %></p>
+        </div>
+        <div class="message-body">
+          <p><strong>Owner still didn't respond</strong></p>
+          <p>
+            You should recieve a message when <%= User.find(Office.find(booking.office_id).user_id).first_name %> responds
+          </p>
+        </div>
+      <div class="message-status">
+        <%if booking.status == "Pending" %>
+          <p class="status pending" style="color: orange !important;">Pending</p>
+        <% elsif  booking.status == "Confirmed" %>
+          <p class="status pending" style="color: green !important;">Confirmed</p>
+        <% else %>
+          <p class="status pending" style="color: red !important;">Canceled</p>
+        <% end %>
+        <p class="price"><%= Office.find(booking.office_id).price %>€</p>
+        <%= link_to "Cancel", cancel_booking_path(booking.id), method: 'put', class: "btn btn-danger" %>
+      </div>
+      </div>
+      <% end %>
+    </div>
+
+
+
+
+
+  <div class="tabtitle">
+    <h4>Your pending bookings</h4>
+  </div>
+
+  <div class="container my-bookings pending" id="my-bookings">
+    <% @bookings_user.select{ |book| book.status = "Pending"}.each do |booking| %>
     <div class="message">
       <% owner_pics = User.find(Office.find(booking.office_id).user_id).photo %>
       <%= cl_image_tag owner_pics, class: "img-circle", :width => 60, :height => 60 %>
@@ -27,12 +72,47 @@
     </div>
     <% end %>
   </div>
+
+
+  <div class="tabtitle">
+    <h4>Your Canceled bookings</h4>
+  </div>
+  <div class="container my-bookings pending" id="my-bookings">
+    <% @bookings_user.select{ |book| book.status = "Canceled"}.each do |booking| %>
+    <div class="message">
+      <% owner_pics = User.find(Office.find(booking.office_id).user_id).photo %>
+      <%= cl_image_tag owner_pics, class: "img-circle", :width => 60, :height => 60 %>
+      <div class="message-name">
+        <h3 style="text-align: left !important;"><%= User.find(Office.find(booking.office_id).user_id).first_name %>'s</h3>
+        <p>For <%= booking.dates %></p>
+      </div>
+      <div class="message-body">
+        <p><strong>Owner still didn't respond</strong></p>
+        <p>
+          You should recieve a message when <%= User.find(Office.find(booking.office_id).user_id).first_name %> responds
+        </p>
+      </div>
+      <div class="message-status">
+        <p class="status canceled", style="color: red !important;"><%= booking.status %></p>
+        <p class="price"><%= Office.find(booking.office_id).price %>€</p>
+      </div>
+    </div>
+    <% end %>
+  </div>
+
 </div>
 
+
+
 <div id="Paris" class="tabcontent">
+
+
+
   <div class="container my-bookings" id="my-bookings">
-    <% @bookings_owner.each do |booking| %>
-    <h4>Pending bookings at your place</h4>
+ <div class="tabtitle">
+    <h4>Confirmed guest bookings</h4>
+  </div>
+    <% @bookings_owner.select{ |book| book.status = "Confirmed"}.each do |booking| %>
     <div class="message">
       <% owner_pics = User.find(Office.find(booking.office_id).user_id).photo %>
       <%= cl_image_tag owner_pics, class: "img-circle", :width => 60, :height => 60 %>
@@ -50,15 +130,86 @@
         <% elsif  booking.status == "Confirmed" %>
           <p class="status pending" style="color: green !important;">Confirmed</p>
         <% else %>
-          <p class="status pending" style="color: red !important;">Rejected</p>
+          <p class="status pending" style="color: red !important;">Canceled</p>
         <% end %>
         <p class="price"><%= Office.find(booking.office_id).price %>€</p>
         <%= link_to "Confirm", confirm_booking_path(booking.id), method: 'put', class: "btn btn-success" %>
-        <%= link_to "Reject", reject_booking_path(booking.id), method: 'put', class: "btn btn-danger" %>
+        <%= link_to "Cancel", reject_booking_path(booking.id), method: 'put', class: "btn btn-danger" %>
       </div>
     </div>
     <% end %>
   </div>
+
+
+
+  <div class="tabtitle">
+    <h4>Pending guest bookings</h4>
+  </div>
+
+  <div class="container my-bookings" id="my-bookings">
+    <% @bookings_owner.select{ |book| book.status = "Pending"}.each do |booking| %>
+    <div class="message">
+      <% owner_pics = User.find(Office.find(booking.office_id).user_id).photo %>
+      <%= cl_image_tag owner_pics, class: "img-circle", :width => 60, :height => 60 %>
+      <div class="message-name">
+        <h3 style="text-align: left !important;">Your place</h3>
+        <p>For <%= booking.dates %></p>
+      </div>
+      <div class="message-body">
+        <%  %>
+        <p><strong>Please respond to renter request</strong></p>
+      </div>
+      <div class="message-status">
+        <%if booking.status == "Pending" %>
+          <p class="status pending" style="color: orange !important;">Pending</p>
+        <% elsif  booking.status == "Confirmed" %>
+          <p class="status pending" style="color: green !important;">Confirmed</p>
+        <% else %>
+          <p class="status pending" style="color: red !important;">Canceled</p>
+        <% end %>
+        <p class="price"><%= Office.find(booking.office_id).price %>€</p>
+        <%= link_to "Confirm", confirm_booking_path(booking.id), method: 'put', class: "btn btn-success" %>
+        <%= link_to "Canceled", reject_booking_path(booking.id), method: 'put', class: "btn btn-danger" %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+
+
+
+  <div class="tabtitle">
+    <h4>Canceled guest bookings</h4>
+  </div>
+
+  <div class="container my-bookings" id="my-bookings">
+    <% @bookings_owner.select{ |book| book.status = "Canceled"}.each do |booking| %>
+    <div class="message">
+      <% owner_pics = User.find(Office.find(booking.office_id).user_id).photo %>
+      <%= cl_image_tag owner_pics, class: "img-circle", :width => 60, :height => 60 %>
+      <div class="message-name">
+        <h3 style="text-align: left !important;">Your place</h3>
+        <p>For <%= booking.dates %></p>
+      </div>
+      <div class="message-body">
+        <%  %>
+        <p><strong>Please respond to renter request</strong></p>
+      </div>
+      <div class="message-status">
+        <%if booking.status == "Pending" %>
+          <p class="status pending" style="color: orange !important;">Pending</p>
+        <% elsif  booking.status == "Confirmed" %>
+          <p class="status pending" style="color: green !important;">Confirmed</p>
+        <% else booking.status == "Canceled"%>
+          <p class="status pending" style="color: red !important;">Canceled</p>
+        <% end %>
+        <p class="price"><%= Office.find(booking.office_id).price %>€</p>
+        <%= link_to "Confirm", confirm_booking_path(booking.id), method: 'put', class: "btn btn-success" %>
+        <%= link_to "Cancel", reject_booking_path(booking.id), method: 'put', class: "btn btn-danger" %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+
 </div>
 
 <script>

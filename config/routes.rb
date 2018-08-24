@@ -20,4 +20,5 @@ Rails.application.routes.draw do
 
   put 'bookings/:id/confirm', to: 'bookings#confirm', as: :confirm_booking
   put 'bookings/:id/reject', to: 'bookings#reject', as: :reject_booking
+  put 'bookings/:id/cancel', to: 'bookings#cancel', as: :cancel_booking
 end
